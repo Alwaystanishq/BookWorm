@@ -39,7 +39,7 @@ router.post("/", protectRoute, async (req, res) => {
 router.get("/", protectRoute, async (req, res) => {
   try {
     const page = req.query.page || 1;
-    const limit = req.query.limit || 2;
+    const limit = req.query.limit || 2;``
     const skip = (page - 1) * limit;
 
     const books = await Book.find()
@@ -84,8 +84,6 @@ router.delete("/:id", protectRoute, async (req, res) => {
     if (book.user.toString() !== req.user._id.toString())
       return res.status(401).json({ message: "Unauthorized" });
 
-    // https://res.cloudinary.com/de1rm4uto/image/upload/v1741568358/qyup61vejflxxw8igvi0.png
-    // delete image from cloduinary as well
     if (book.image && book.image.includes("cloudinary")) {
       try {
         const publicId = book.image.split("/").pop().split(".")[0];
